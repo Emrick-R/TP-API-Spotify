@@ -14,8 +14,8 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/contact", controller.Contact)
 
 	// Ajout des fichiers statiques
-	fileServer := http.FileServer(http.Dir("./static"))
-	mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	fileServer := http.FileServer(http.Dir("./assets"))
+	mux.Handle("/assets/", http.StripPrefix("/assets/", fileServer))
 
 	return mux
 }
