@@ -1,7 +1,6 @@
-package api
+package main
 
 import (
-	"TP-API-Spotify/structure"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -11,8 +10,50 @@ import (
 	"time"
 )
 
-func GetToken() structure.Token {
+type ApiData struct {
+	Token            string `json:"access_token"`
+	Error            string `json:"error"`
+	ErrorDescription string `json:"error_description"`
+}
 
+var Token *string
+
+func main() {
+	To := GetToken()
+	if To.Error != "" {
+		fmt.Println("Erreur lors de la récupération du token : ", To.Error, " ", To.ErrorDescription)
+	} else {
+		Token = &To.Token
+		fmt.Println("Token récupéré : ", *Token)
+	}
+
+	A := GetAlbum(*Token, "2UwqpfQtNuhBwviIC0f2ie") //Dasmso ID: 2UwqpfQtNuhBwviIC0f2ie
+	if A.Error != "" {
+		fmt.Println("Erreur lors de la récupération de l'album : ", A.Error, " ", A.ErrorDescription)
+	} else {
+		fmt.Println("\nAlbum récupéré : ", A.AlbumData)
+		for i, item := range A.AlbumData {
+			fmt.Printf("%d Nom de l'album: %s\nDate de sortie: %s\nNombre de pistes: %d\nURL Spotify: %s\nImage: %s\n\n",
+				i, item.Name, item.ReleseDate, item.TotalTracks, item.URL.Spotify, item.Image[1].URL)
+		}
+	}
+
+	Tr := GetTrack(*Token, "3Gm5Z8u0U1J1R7aB2VY3fK") //Laylow Track ID: 3Gm5Z8u0U1J1R7aB2VY3fK
+	if Tr.Error != "" {
+		fmt.Println("Erreur lors de la récupération du track : ", Tr.Error, " ", Tr.ErrorDescription)
+	} else {
+		fmt.Printf("\nTrack récupéré : %s\nAlbum: %s\n", Tr.Name, Tr.Album.Name)
+		var imgURL string
+		if len(Tr.Album.Image) > 0 {
+			imgURL = Tr.Album.Image[0].URL
+		}
+		fmt.Printf("%d Nom de musique: %s\nNom de l'album: %s\nDate de sortie: %s\nURL Spotify: %s\nImage: %s\n\n",
+			0, Tr.Name, Tr.Album.Name, Tr.Album.ReleaseDate, Tr.Album.URL.Spotify, imgURL)
+	}
+
+}
+
+func GetToken() ApiData {
 	// URL de L'API
 	urlApi := "https://accounts.spotify.com/api/token"
 
@@ -40,7 +81,7 @@ func GetToken() structure.Token {
 	res, errResp := httpClient.Do(req)
 	if errResp != nil {
 		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
-		return structure.Token{Error: errResp.Error()}
+		return ApiData{Error: errResp.Error()}
 	}
 
 	if res.Body != nil {
@@ -54,7 +95,7 @@ func GetToken() structure.Token {
 	}
 
 	// Déclaration de la variable qui va contenir les données
-	var decodeData structure.Token
+	var decodeData ApiData
 
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)
@@ -63,16 +104,35 @@ func GetToken() structure.Token {
 	if decodeData.Error != "" {
 		return decodeData
 	} else {
-		fmt.Println("Token récupéré avec succès : ", decodeData.AccessToken)
+		fmt.Println("Token récupéré avec succès : ", decodeData.Token)
 		return decodeData
 	}
 }
 
-func GetArtist() {
-
+// structure avec les données de l'album que l'on veut récupérer
+type AllAlbums struct {
+	AlbumData        []items `json:"items"`
+	Error            string  `json:"error"`
+	ErrorDescription string  `json:"error_description"`
 }
 
-func GetAlbum(Token string, id string) structure.AllAlbums {
+type items struct {
+	TotalTracks int         `json:"total_tracks"`
+	URL         ExternalURL `json:"external_urls"`
+	Image       []Image     `json:"images"`
+	Name        string      `json:"name"`
+	ReleseDate  string      `json:"release_date"`
+}
+
+type ExternalURL struct {
+	Spotify string `json:"spotify"`
+}
+
+type Image struct {
+	URL string `json:"url"`
+}
+
+func GetAlbum(Token string, id string) AllAlbums {
 	// URL de L'API
 	urlApi := "https://api.spotify.com/v1/artists/" + id + "/albums"
 
@@ -99,7 +159,7 @@ func GetAlbum(Token string, id string) structure.AllAlbums {
 	res, errResp := httpClient.Do(req)
 	if errResp != nil {
 		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
-		return structure.AllAlbums{Error: errResp.Error()}
+		return AllAlbums{Error: errResp.Error()}
 	}
 
 	if res.Body != nil {
@@ -113,7 +173,7 @@ func GetAlbum(Token string, id string) structure.AllAlbums {
 	}
 
 	// Déclaration de la variable qui va contenir les données
-	var decodeData structure.AllAlbums
+	var decodeData AllAlbums
 
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)
@@ -122,13 +182,32 @@ func GetAlbum(Token string, id string) structure.AllAlbums {
 	if decodeData.Error != "" {
 		return decodeData
 	} else {
-		fmt.Printf("album de %s récupéré : \n", id)
+		fmt.Printf("Track de %s récupéré : \n", id)
 		println(decodeData.AlbumData)
 		return decodeData
 	}
 }
 
-func GetTrack(Token string, id string) structure.Track {
+type Track struct {
+	Name             string   `json:"name"`
+	Album            Album    `json:"album"`
+	Artists          []Artist `json:"artists"`
+	Error            string   `json:"error"`
+	ErrorDescription string   `json:"error_description"`
+}
+
+type Album struct {
+	Name        string      `json:"name"`
+	URL         ExternalURL `json:"external_urls"`
+	Image       []Image     `json:"images"`
+	ReleaseDate string      `json:"release_date"`
+}
+
+type Artist struct {
+	Name string `json:"name"`
+}
+
+func GetTrack(Token string, id string) Track {
 	// URL de L'API
 	urlApi := "https://api.spotify.com/v1/tracks/" + id
 
@@ -150,7 +229,7 @@ func GetTrack(Token string, id string) structure.Track {
 	res, errResp := httpClient.Do(req)
 	if errResp != nil {
 		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
-		return structure.Track{Error: errResp.Error()}
+		return Track{Error: errResp.Error()}
 	}
 
 	if res.Body != nil {
@@ -164,7 +243,7 @@ func GetTrack(Token string, id string) structure.Track {
 	}
 
 	// Déclaration de la variable qui va contenir les données
-	var decodeData structure.Track
+	var decodeData Track
 
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)
@@ -177,6 +256,10 @@ func GetTrack(Token string, id string) structure.Track {
 		fmt.Println(decodeData)
 		return decodeData
 	}
+}
+
+func GetArtist() {
+
 }
 
 func GetAPIdata() {
@@ -216,7 +299,7 @@ func GetAPIdata() {
 	}
 
 	// Déclaration de la variable qui va contenir les données
-	var decodeData structure.ApiData
+	var decodeData ApiData
 
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)

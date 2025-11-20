@@ -17,18 +17,19 @@ type Token struct {
 	ErrorDescription string `json:"error_description"`
 }
 
-type Album struct { //structure avefs les données de l'album que l'on veut récupérer
-	Items            []items `json:"items"`
+// structure avec les données de l'album que l'on veut récupérer
+type AllAlbums struct {
+	AlbumData        []Items `json:"items"`
 	Error            string  `json:"error"`
 	ErrorDescription string  `json:"error_description"`
 }
 
-type items struct {
+type Items struct {
 	TotalTracks int         `json:"total_tracks"`
 	URL         ExternalURL `json:"external_urls"`
-	Image       Image       `json:"images"`
+	Image       []Image     `json:"images"`
 	Name        string      `json:"name"`
-	ReleseDate  string      `json:"release_date"`
+	ReleaseDate string      `json:"release_date"`
 }
 
 type ExternalURL struct {
@@ -37,4 +38,23 @@ type ExternalURL struct {
 
 type Image struct {
 	URL string `json:"url"`
+}
+
+type Track struct {
+	Name             string   `json:"name"`
+	Album            Album    `json:"album"`
+	Artists          []Artist `json:"artists"`
+	Error            string   `json:"error"`
+	ErrorDescription string   `json:"error_description"`
+}
+
+type Album struct {
+	Name        string      `json:"name"`
+	URL         ExternalURL `json:"external_urls"`
+	Image       []Image     `json:"images"`
+	ReleaseDate string      `json:"release_date"`
+}
+
+type Artist struct {
+	Name string `json:"name"`
 }

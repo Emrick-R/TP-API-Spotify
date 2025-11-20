@@ -2,6 +2,7 @@ package controller
 
 import (
 	"TP-API-Spotify/api"
+	"TP-API-Spotify/structure"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -14,8 +15,11 @@ func renderTemplate(w http.ResponseWriter, filename string, data map[string]stri
 }
 
 type PageData struct {
-	Title   string
-	Message string
+	Title     string
+	Message   string
+	Artist    string
+	AlbumData []structure.Items
+	Track     string
 }
 
 var Token *string
@@ -39,6 +43,17 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func Damso(w http.ResponseWriter, r *http.Request) {
+
+	A := api.GetAlbum(*Token, "2UwqpfQtNuhBwviIC0f2ie") //Dasmso Spotify ID: 2UwqpfQtNuhBwviIC0f2ie
+	if A.Error != "" {
+		fmt.Println("Erreur lors de la récupération de l'album : ", A.Error, " ", A.ErrorDescription)
+	} else {
+		fmt.Println("\nAlbum récupéré : ", A.AlbumData)
+		for i, item := range A.AlbumData {
+			fmt.Printf("%d Nom de l'album: %s\nDate de sortie: %s\nNombre de pistes: %d\nURL Spotify: %s\nImage: %s\n\n",
+				i, item.Name, item.ReleaseDate, item.TotalTracks, item.URL.Spotify, item.Image[1].URL)
+		}
+	}
 	data := PageData{
 		Title:   "Damso",
 		Message: "Bienvenue sur la page de Damso 🎤",
