@@ -1,6 +1,7 @@
 package api
 
 import (
+	"TP-API-Spotify/structure"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,18 +11,7 @@ import (
 	"time"
 )
 
-type ApiData struct {
-	Id      int      `json:"id"`
-	Name    string   `json:"name"`
-	Status  string   `json:"status"`
-	Species string   `json:"species"`
-	Type    string   `json:"type"`
-	Gender  string   `json:"gender"`
-	Image   string   `json:"image"`
-	Episode []string `json:"episode"`
-}
-
-func GetToken() {
+func GetToken() structure.Token {
 
 	// URL de L'API
 	urlApi := "https://accounts.spotify.com/api/token"
@@ -50,7 +40,7 @@ func GetToken() {
 	res, errResp := httpClient.Do(req)
 	if errResp != nil {
 		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
-		return
+		return structure.Token{Error: errResp.Error()}
 	}
 
 	if res.Body != nil {
@@ -64,21 +54,67 @@ func GetToken() {
 	}
 
 	// Déclaration de la variable qui va contenir les données
-	var decodeData ApiData
+	var decodeData structure.Token
 
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)
 
 	// Affichage des données
-	fmt.Println(decodeData)
+	if decodeData.Error != "" {
+		return decodeData
+	} else {
+		fmt.Println("Token récupéré avec succès : ", decodeData.AccessToken)
+		return decodeData
+	}
 }
 
 func GetArtist() {
 
 }
 
-func GetAlbum() {
+func GetAlbum(Token *string, id string) (string, *structure.Album) {
+	// URL de L'API
+	urlApi := "https://api.spotify.com/v1/artists/" + id + "/albums"
 
+	// Initialisation du client HTTP qui va émettre/demander les requêtes
+	httpClient := http.Client{
+		Timeout: time.Second * 2, // Timeout apres 2sec
+	}
+
+	// Création de la requête HTTP vers L'API avec initialisation de la methode HTTP, la route et le corps de la requête
+	req, errReq := http.NewRequest(http.MethodGet, urlApi, nil) // Méthode de req, url de l'API, Paramètres de la req (On converti les strings en flux lisible io.reader)
+	if errReq != nil {
+		fmt.Println("Oupss, une erreur est survenue : ", errReq.Error())
+	}
+
+	// Ajout d'une métadonnée dans le header
+	req.Header.Add("Authorization", "Bearer "+*Token)
+
+	// Execution de la requête HTTP vars L'API
+	res, errResp := httpClient.Do(req)
+	if errResp != nil {
+		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
+		return errResp.Error(), &structure.Album{}
+	}
+
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	// Lecture et récupération du corps de la requête HTTP
+	body, errBody := io.ReadAll(res.Body)
+	if errBody != nil {
+		fmt.Println("Oupss, une erreur est survenue : ", errBody.Error())
+	}
+
+	// Déclaration de la variable qui va contenir les données
+	var decodeData structure.Album
+
+	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
+	json.Unmarshal(body, &decodeData)
+
+	// Affichage des données
+	return "", &decodeData
 }
 
 func GetTrack() {
@@ -122,7 +158,7 @@ func GetAPIdata() {
 	}
 
 	// Déclaration de la variable qui va contenir les données
-	var decodeData ApiData
+	var decodeData structure.ApiData
 
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)

@@ -1,0 +1,554 @@
+{
+  "type": "collection.insomnia.rest/5.0",
+  "name": "API-Spotify",
+  "meta": {
+    "id": "wrk_e789a282e77340648aed2ae1bbcb34aa",
+    "created": 1763625945976,
+    "modified": 1763626601995,
+    "description": ""
+  },
+  "collection": [
+    {
+      "url": "https://accounts.spotify.com/api/token",
+      "name": "Acces Token",
+      "meta": {
+        "id": "req_90d57e2cb0824c6b953b5dcee86fe773",
+        "created": 1763626483454,
+        "modified": 1763628018833,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483454
+      },
+      "method": "POST",
+      "parameters": [
+        {
+          "id": "pair_552c4d8759d84b328f69ce139fa5c289",
+          "name": "client_id",
+          "value": "967f549670ed4aefbfedf2b746202c75",
+          "description": "",
+          "disabled": false
+        },
+        {
+          "id": "pair_1692604f826644938b21cec79c168712",
+          "name": "grant_type",
+          "value": "client_credentials",
+          "description": "",
+          "disabled": false
+        },
+        {
+          "id": "pair_76619e3bf1714442907a48d3df451cb6",
+          "name": "client_secret",
+          "value": "ad8b9b61687d4c3387784e0a7e34c54e",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_6138ce05f7c1435cafdc98b593292113",
+          "disabled": true
+        },
+        {
+          "id": "pair_31d5d9b482e9454c848b74ee302707d6",
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/artists/2UwqpfQtNuhBwviIC0f2ie",
+      "name": "GET Artist DAMSO",
+      "meta": {
+        "id": "req_26dac1f006064022a240e728011a965e",
+        "created": 1763626486707,
+        "modified": 1763630761833,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626486707
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_f899088c788544db938a18950c9cc1ac",
+          "name": "",
+          "value": "",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/artists/2UwqpfQtNuhBwviIC0f2ie/albums",
+      "name": "GET DAMSO Albums",
+      "meta": {
+        "id": "req_f7d8074927f045c6a8f1c2998c1fdb61",
+        "created": 1763628066019,
+        "modified": 1763630794876,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626485080.5
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_f899088c788544db938a18950c9cc1ac",
+          "name": "",
+          "value": "",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/albums/4beTtJKeg3ITJsiVuxkiV0/tracks",
+      "name": "GET DAMSO Albums Batterie Faible LIMIT 5 tracks",
+      "meta": {
+        "id": "req_b8798416b9114fb7a6eafb6abcc64942",
+        "created": 1763628530725,
+        "modified": 1763632246136,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626484267.25
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_f899088c788544db938a18950c9cc1ac",
+          "name": "limit",
+          "value": "5",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/tracks/6nkFbmDY84a9rejFSbIMdj",
+      "name": "GET DAMSO Track Impardonnable",
+      "meta": {
+        "id": "req_b6921a83dd7140b3be4243484d1d64cb",
+        "created": 1763630876665,
+        "modified": 1763630914847,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483860.625
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_6499471e35704ff6847305e74e5c941c",
+          "name": "",
+          "value": "",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/artists/0LnhY2fzptb0QEs5Q5gM7S/top-tracks",
+      "name": "GET LAYLOW Top-track",
+      "meta": {
+        "id": "req_1f8cfe25e77c4997bb6c5f27d6da689a",
+        "created": 1763631221819,
+        "modified": 1763631322076,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483657.3125
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_7fa1a92c94bf4ab78f0bd1ac6aa074fb",
+          "name": "",
+          "value": "",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/tracks/67Pf31pl0PfjBfUmvYNDCL",
+      "name": "GET LAYLOW Track Maladresse",
+      "meta": {
+        "id": "req_3c5e980fa1554dcb9c75955aa613b1e4",
+        "created": 1763631556457,
+        "modified": 1763631621598,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483555.6562
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_7fa1a92c94bf4ab78f0bd1ac6aa074fb",
+          "name": "",
+          "value": "",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/shows/6y1PloEyNsCNJH9vHias4T",
+      "name": "GET PODCAST “Les actus du jour - Hugo décrypte",
+      "meta": {
+        "id": "req_768ac40d1df5437a856b5299dd4a3689",
+        "created": 1763631806528,
+        "modified": 1763632196855,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483504.8281
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_7fa1a92c94bf4ab78f0bd1ac6aa074fb",
+          "name": "",
+          "value": "",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/shows/6y1PloEyNsCNJH9vHias4T/episodes",
+      "name": "GET PODCAST “Les actus du jour - Hugo décrypte EPISODES LIMIT 3",
+      "meta": {
+        "id": "req_c5d40498707d4c008d8af7c487ec9096",
+        "created": 1763632605355,
+        "modified": 1763632759974,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483479.414
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_7fa1a92c94bf4ab78f0bd1ac6aa074fb",
+          "name": "limit",
+          "value": "3",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    },
+    {
+      "url": "https://api.spotify.com/v1/shows/6y1PloEyNsCNJH9vHias4T/episodes",
+      "name": "GET PODCAST “Les actus du jour - Hugo décrypte EPISODES 2e épisode",
+      "meta": {
+        "id": "req_de6b16cd4d0b42f094fafd6d16a850af",
+        "created": 1763632976819,
+        "modified": 1763633018393,
+        "isPrivate": false,
+        "description": "",
+        "sortKey": -1763626483466.707
+      },
+      "method": "GET",
+      "parameters": [
+        {
+          "id": "pair_7fa1a92c94bf4ab78f0bd1ac6aa074fb",
+          "name": "limit",
+          "value": "1",
+          "description": "",
+          "disabled": false
+        },
+        {
+          "id": "pair_3da44c1d2fdf4b859051505114781a58",
+          "name": "offset",
+          "value": "1",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/12.0.0",
+          "id": "pair_5b6e9bfedfff405a8fdf6a8f877c6fe8",
+          "disabled": true
+        },
+        {
+          "id": "pair_773186ce9d25436a8c9d16a7db84c507",
+          "name": "Authorization",
+          "value": "Bearer  BQAkJQnN6WF0ZZLDSCuf_jLlnj554_lYXAHpiSveCVB8tF6FhA0xUqHxAxEdEiDu8ryFIUmKWq2ogcV_gHRTEskVqSxxmIr3WmlIIT8m_V7GWBRl5MfKSwe5G0KGSJMhuP63Cz4STZ4",
+          "description": "",
+          "disabled": false
+        }
+      ],
+      "settings": {
+        "renderRequestBody": true,
+        "encodeUrl": true,
+        "followRedirects": "global",
+        "cookies": {
+          "send": true,
+          "store": true
+        },
+        "rebuildPath": true
+      }
+    }
+  ],
+  "cookieJar": {
+    "name": "Default Jar",
+    "meta": {
+      "id": "jar_43d5adf71f4d82451cad8edcad8f90120c9af17e",
+      "created": 1763625945980,
+      "modified": 1763626561862
+    },
+    "cookies": [
+      {
+        "key": "__Host-device_id",
+        "value": "AQAzdXjg-Imh1ADmypbCmNOja0H3o-fvsEkHGXKXZSZ3oVSvd29fIspAlmzOaNhHj5QSN_afw4Cdop7WZxXzWmeMBPh1xyccRO8",
+        "maxAge": 2147483647,
+        "domain": "accounts.spotify.com",
+        "path": "/",
+        "secure": true,
+        "httpOnly": true,
+        "extensions": [
+          "Version=1"
+        ],
+        "hostOnly": true,
+        "creation": "2025-11-20T08:16:01.860000+00:00",
+        "lastAccessed": "2025-11-20T08:16:01.860000+00:00",
+        "sameSite": "lax",
+        "id": "ba7a38f6-31d2-478a-adfd-80af99c75624"
+      },
+      {
+        "key": "sp_tr",
+        "value": "false",
+        "domain": "accounts.spotify.com",
+        "path": "/",
+        "secure": true,
+        "extensions": [
+          "Version=1"
+        ],
+        "hostOnly": false,
+        "creation": "2025-11-20T08:16:01.861000+00:00",
+        "lastAccessed": "2025-11-20T08:16:01.861000+00:00",
+        "sameSite": "lax",
+        "id": "ee5ae291-7360-4206-8178-2b126ae3fe0b"
+      }
+    ]
+  },
+  "environments": {
+    "name": "Base Environment",
+    "meta": {
+      "id": "env_43d5adf71f4d82451cad8edcad8f90120c9af17e",
+      "created": 1763625945978,
+      "modified": 1763625945978,
+      "isPrivate": false
+    }
+  }
+}

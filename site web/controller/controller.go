@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"TP-API-Spotify/api"
+	"fmt"
 	"html/template"
 	"net/http"
 )
@@ -16,12 +18,41 @@ type PageData struct {
 	Message string
 }
 
+var Token *string
+
 func Home(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
 		Title:   "Accueil",
 		Message: "Bienvenue 🎉",
 	}
+	// Récupération du token pour toute la session de l'utilisateur
+	T := api.GetToken()
+	if T.Error != "" {
+		fmt.Println("Erreur lors de la récupération du token : ", T.Error, " ", T.ErrorDescription)
+	} else {
+		Token = &T.AccessToken
+		fmt.Println("Token récupéré : ", *Token)
+	}
+
 	tmpl := template.Must(template.ParseFiles("template/index.html"))
+	tmpl.Execute(w, data)
+}
+
+func Damso(w http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title:   "Damso",
+		Message: "Bienvenue sur la page de Damso 🎤",
+	}
+	tmpl := template.Must(template.ParseFiles("template/damso.html"))
+	tmpl.Execute(w, data)
+}
+
+func Laylow(w http.ResponseWriter, r *http.Request) {
+	data := PageData{
+		Title:   "Laylow",
+		Message: "Bienvenue sur la page de Laylow 🎤",
+	}
+	tmpl := template.Must(template.ParseFiles("template/laylow.html"))
 	tmpl.Execute(w, data)
 }
 
