@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/style.css">
+    <title>Api Spotify - Albums Damso</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <ul class="nav-menu">
+            <li><a href="/" class="nav-links">Home</a></li>
+    </nav>
+    <div>
+        <div>
+            <div>
+            <img src="/assets/img/Laylow.png" alt="Photo de Laylow">
+            </div>
+            <div>
+                <h1>Laylow</h1>
+                <p>Laylow, de son vrai nom Julien Allouf, est un rappeur et producteur français originaire de Toulouse. Il s'est fait connaître grâce à son style unique mêlant rap, trap et influences électroniques. Laylow est reconnu pour ses textes introspectifs et son univers visuel soigné, souvent inspiré par la science-fiction et les technologies futuristes. Depuis ses débuts, il a sorti plusieurs projets acclamés par la critique, dont "Trinity" et "L'étrange histoire de Mr. Anderson".</p>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h2>Albums</h2>
+            </div>
+            <div class="albums">
+
+                    <div class="album-card">
+
+                        <img src="{{.TrackData.AlbumImage}}" alt="Image album" width="200">
+
+                        <p><strong>Nom de la musique:</strong> {{.TrackData.TrackName}}</p>
+                        <p><strong>Nom de l'artiste:</strong> {{.TrackData.ArtistName}}</p>
+                        <p><strong>Date de sortie :</strong> {{.TrackData.AlbumRelease}}</p>
+                        <p><strong>Album :</strong> {{.TrackData.AlbumName}}</p>
+
+                        <p><strong>URL Spotify :</strong>
+                            <a href="{{.TrackData.AlbumURL}}" target="_blank">Ouvrir</a> <!-- target="_blank" = indique qu'il doit ouvrir le lien avec un nouvel onglet-->
+                        </p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
