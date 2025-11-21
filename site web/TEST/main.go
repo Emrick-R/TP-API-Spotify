@@ -16,6 +16,17 @@ type ApiData struct {
 	ErrorDescription string `json:"error_description"`
 }
 
+type AlbumData struct {
+	Data []Data
+}
+type Data struct {
+	Image       string
+	Name        string
+	ReleaseDate string
+	TotalTracks int
+	URL         string
+}
+
 var Token *string
 
 func main() {
@@ -31,24 +42,40 @@ func main() {
 	if A.Error != "" {
 		fmt.Println("Erreur lors de la récupération de l'album : ", A.Error, " ", A.ErrorDescription)
 	} else {
-		fmt.Println("\nAlbum récupéré : ", A.AlbumData)
-		for i, item := range A.AlbumData {
+		fmt.Println("\nAlbum récupéré : ", A.AlbumItems)
+		for i, item := range A.AlbumItems {
 			fmt.Printf("%d Nom de l'album: %s\nDate de sortie: %s\nNombre de pistes: %d\nURL Spotify: %s\nImage: %s\n\n",
-				i, item.Name, item.ReleseDate, item.TotalTracks, item.URL.Spotify, item.Image[1].URL)
+				i, item.Name, item.ReleaseDate, item.TotalTracks, item.URL.Spotify, item.Image[1].URL)
 		}
 	}
 
-	Tr := GetTrack(*Token, "3Gm5Z8u0U1J1R7aB2VY3fK") //Laylow Track ID: 3Gm5Z8u0U1J1R7aB2VY3fK
-	if Tr.Error != "" {
-		fmt.Println("Erreur lors de la récupération du track : ", Tr.Error, " ", Tr.ErrorDescription)
+	Tr := GetTrack(*Token, "67Pf31pl0PfjBfUmvYNDCL") //Laylow Track ID: 3Gm5Z8u0U1J1R7aB2VY3fK
+	if Tr.Error.Message != "" {
+		fmt.Println("Erreur lors de la récupération du track : ", Tr.Error.Status, " ", Tr.Error.Message)
 	} else {
 		fmt.Printf("\nTrack récupéré : %s\nAlbum: %s\n", Tr.Name, Tr.Album.Name)
 		var imgURL string
 		if len(Tr.Album.Image) > 0 {
 			imgURL = Tr.Album.Image[0].URL
 		}
-		fmt.Printf("%d Nom de musique: %s\nNom de l'album: %s\nDate de sortie: %s\nURL Spotify: %s\nImage: %s\n\n",
-			0, Tr.Name, Tr.Album.Name, Tr.Album.ReleaseDate, Tr.Album.URL.Spotify, imgURL)
+		fmt.Printf("%d Nom de musique: %s\nNom de l'artiste: %s\nNom de l'album: %s\nDate de sortie: %s\nURL Spotify: %s\nImage: %s\n\n",
+			0, Tr.Name, Tr.Artists[0].Name, Tr.Album.Name, Tr.Album.ReleaseDate, Tr.Album.URL.Spotify, imgURL)
+	}
+
+	AHTML := AlbumData{}
+	for _, i := range A.AlbumItems {
+		data := Data{
+			Image:       i.Image[1].URL,
+			Name:        i.Name,
+			ReleaseDate: i.ReleaseDate,
+			TotalTracks: i.TotalTracks,
+			URL:         i.URL.Spotify,
+		}
+		AHTML.Data = append(AHTML.Data, data)
+	}
+	fmt.Println("\n\n", AHTML)
+	for i, d := range AHTML.Data {
+		fmt.Printf("%d Image: %s\nNom de l'album: %s\nDate de sortie: %s\nTotal tracks: %d\nURL Spotify: %s\n\n", i, d.Image, d.Name, d.ReleaseDate, d.TotalTracks, d.URL)
 	}
 
 }
@@ -111,7 +138,7 @@ func GetToken() ApiData {
 
 // structure avec les données de l'album que l'on veut récupérer
 type AllAlbums struct {
-	AlbumData        []items `json:"items"`
+	AlbumItems       []items `json:"items"`
 	Error            string  `json:"error"`
 	ErrorDescription string  `json:"error_description"`
 }
@@ -121,7 +148,7 @@ type items struct {
 	URL         ExternalURL `json:"external_urls"`
 	Image       []Image     `json:"images"`
 	Name        string      `json:"name"`
-	ReleseDate  string      `json:"release_date"`
+	ReleaseDate string      `json:"release_date"`
 }
 
 type ExternalURL struct {
@@ -182,18 +209,22 @@ func GetAlbum(Token string, id string) AllAlbums {
 	if decodeData.Error != "" {
 		return decodeData
 	} else {
-		fmt.Printf("Track de %s récupéré : \n", id)
-		println(decodeData.AlbumData)
+		fmt.Printf("Album de %s récupéré : \n", id)
+		println(decodeData.AlbumItems)
 		return decodeData
 	}
 }
 
 type Track struct {
-	Name             string   `json:"name"`
-	Album            Album    `json:"album"`
-	Artists          []Artist `json:"artists"`
-	Error            string   `json:"error"`
-	ErrorDescription string   `json:"error_description"`
+	Name    string   `json:"name"`
+	Album   Album    `json:"album"`
+	Artists []Artist `json:"artists"`
+	Error   Error    `json:"error"`
+}
+
+type Error struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
 }
 
 type Album struct {
@@ -229,7 +260,7 @@ func GetTrack(Token string, id string) Track {
 	res, errResp := httpClient.Do(req)
 	if errResp != nil {
 		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
-		return Track{Error: errResp.Error()}
+		return Track{Error: Error{Message: errResp.Error()}}
 	}
 
 	if res.Body != nil {
@@ -248,11 +279,13 @@ func GetTrack(Token string, id string) Track {
 	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
 	json.Unmarshal(body, &decodeData)
 
+	fmt.Println(string(body))
+
 	// Affichage des données
-	if decodeData.Error != "" {
+	if decodeData.Error.Message != "" {
 		return decodeData
 	} else {
-		fmt.Printf("album de %s récupéré : \n", id)
+		fmt.Printf("Track de %s récupéré : \n", id)
 		fmt.Println(decodeData)
 		return decodeData
 	}

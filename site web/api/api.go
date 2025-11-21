@@ -68,10 +68,6 @@ func GetToken() structure.Token {
 	}
 }
 
-func GetArtist() {
-
-}
-
 func GetAlbum(Token string, id string) structure.AllAlbums {
 	// URL de L'API
 	urlApi := "https://api.spotify.com/v1/artists/" + id + "/albums"
@@ -123,9 +119,13 @@ func GetAlbum(Token string, id string) structure.AllAlbums {
 		return decodeData
 	} else {
 		fmt.Printf("album de %s récupéré : \n", id)
-		println(decodeData.AlbumData)
+		println(decodeData.AlbumItems)
 		return decodeData
 	}
+}
+
+func GetArtist() {
+
 }
 
 func GetTrack(Token string, id string) structure.Track {
@@ -150,7 +150,7 @@ func GetTrack(Token string, id string) structure.Track {
 	res, errResp := httpClient.Do(req)
 	if errResp != nil {
 		fmt.Println("Oupss, une erreur est survenue : ", errResp.Error())
-		return structure.Track{Error: errResp.Error()}
+		return structure.Track{Error: structure.Error{Message: errResp.Error()}}
 	}
 
 	if res.Body != nil {
@@ -170,7 +170,7 @@ func GetTrack(Token string, id string) structure.Track {
 	json.Unmarshal(body, &decodeData)
 
 	// Affichage des données
-	if decodeData.Error != "" {
+	if decodeData.Error.Message != "" {
 		return decodeData
 	} else {
 		fmt.Printf("album de %s récupéré : \n", id)

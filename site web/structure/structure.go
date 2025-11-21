@@ -19,7 +19,7 @@ type Token struct {
 
 // structure avec les données de l'album que l'on veut récupérer
 type AllAlbums struct {
-	AlbumData        []Items `json:"items"`
+	AlbumItems       []Items `json:"items"`
 	Error            string  `json:"error"`
 	ErrorDescription string  `json:"error_description"`
 }
@@ -40,12 +40,28 @@ type Image struct {
 	URL string `json:"url"`
 }
 
+// Donnée que l'on envoie au html
+type AlbumData struct {
+	Data []Data
+}
+type Data struct {
+	Image       string
+	Name        string
+	ReleaseDate string
+	TotalTracks int
+	URL         string
+}
+
 type Track struct {
-	Name             string   `json:"name"`
-	Album            Album    `json:"album"`
-	Artists          []Artist `json:"artists"`
-	Error            string   `json:"error"`
-	ErrorDescription string   `json:"error_description"`
+	Name    string   `json:"name"`
+	Album   Album    `json:"album"`
+	Artists []Artist `json:"artists"`
+	Error   Error    `json:"error"`
+}
+
+type Error struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
 }
 
 type Album struct {
@@ -57,4 +73,14 @@ type Album struct {
 
 type Artist struct {
 	Name string `json:"name"`
+}
+
+// Data de la track que l'on envoie au HTML
+type TrackData struct {
+	TrackName    string
+	AlbumName    string
+	AlbumRelease string
+	AlbumURL     string
+	AlbumImage   string
+	ArtistName   string
 }
