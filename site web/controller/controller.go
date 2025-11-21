@@ -104,26 +104,3 @@ func Laylow(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("template/laylow.html"))
 	tmpl.Execute(w, data)
 }
-
-// Contact gère la page de contact
-func Contact(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost { // Si le formulaire est soumis en POST
-		// Récupération des données du formulaire
-		name := r.FormValue("name") // Récupère le champ "name"
-		msg := r.FormValue("msg")   // Récupère le champ "msg"
-
-		data := map[string]string{
-			"Title":   "Contact",
-			"Message": "Merci " + name + " pour ton message : " + msg, // Message personnalisé après soumission
-		}
-		renderTemplate(w, "contact.html", data)
-		return // On termine ici pour ne pas exécuter la partie GET
-	}
-
-	// Si ce n'est pas un POST, on affiche simplement le formulaire
-	data := map[string]string{
-		"Title":   "Contact",
-		"Message": "Envoie-nous un message 📩",
-	}
-	renderTemplate(w, "contact.html", data)
-}

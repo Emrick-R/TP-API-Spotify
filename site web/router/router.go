@@ -13,7 +13,6 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/", controller.Home)
 	mux.HandleFunc("/album/Damso", controller.Damso)
 	mux.HandleFunc("/track/Laylow", controller.Laylow)
-	mux.HandleFunc("/contact", controller.Contact)
 
 	// Ajout des fichiers statiques
 	fileServer := http.FileServer(http.Dir("./assets"))

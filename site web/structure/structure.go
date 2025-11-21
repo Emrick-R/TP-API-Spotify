@@ -1,16 +1,5 @@
 package structure
 
-type ApiData struct {
-	Id      int      `json:"id"`
-	Name    string   `json:"name"`
-	Status  string   `json:"status"`
-	Species string   `json:"species"`
-	Type    string   `json:"type"`
-	Gender  string   `json:"gender"`
-	Image   string   `json:"image"`
-	Episode []string `json:"episode"`
-}
-
 type Token struct {
 	AccessToken      string `json:"access_token"`
 	Error            string `json:"error"`
