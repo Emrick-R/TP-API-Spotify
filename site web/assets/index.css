@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background : linear-gradient(
+    45deg,
+    rgb(70, 70, 70) 10%,
+    rgb(0, 0, 0) 90%
+
+  )
+
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    gap: 250px;
+}
+
+.image {
+    border-radius: 150px;
+    width: 500px;
+    height: 500px;
+    box-shadow: #000000 10px 10px 30px;
+}
+
+.image:hover {
+    transform: scale(1.05);
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.menu-item {
+  text-align: center;
+  vertical-align: middle;
+  display: table;
+  width: 300px;
+}
+
+.menu-item a {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: table-cell;
+  padding: 20px;
+}
+
+.menu-item a:hover {
+  color: black;
+}
+
+#logo a {
+  padding: 20px 0 10px;
+  background: linear-gradient(
+    45deg,
+    rgb(0, 0, 0) 20%,
+    rgb(2, 204, 12) 80%
+
+  );
+}
+
+#logo a:hover {
+  background-color: blue;
+}
+
+#SpotifyLogo{
+    width: 60px;
+    height: auto;
+    transform: rotate(45deg);
+}
+#SpotifyLogo:hover{
+    transform: scale(1.2) rotate(45deg);
+}
+
+#home    a { 
+    background: linear-gradient(
+    45deg,
+    rgb(0, 0, 0) 20%,
+    rgb(2, 204, 12) 80%
+    );    
+}
+
+nav {
+  /* Pretty much everything is defined here: */
+  position: absolute;
+  width: 700px;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: -165px;
+  left: -155px;
+}
